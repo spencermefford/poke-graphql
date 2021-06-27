@@ -1,3 +1,3 @@
-import startApolloServer from './server'
+import startApolloServer from './server';
 
-startApolloServer()
+startApolloServer();
