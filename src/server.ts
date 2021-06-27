@@ -1,22 +1,18 @@
 import express from 'express';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
+import typeDefs from './graphql/schema';
+import resolvers from './graphql/resolvers';
+import { DataSources } from './types/graphql';
+import PokemonDataSource from './graphql/PokemonDataSource';
 
 export default async function startApolloServer() {
-  // Construct a schema, using GraphQL schema language
-  const typeDefs = gql`
-    type Query {
-      hello: String
-    }
-  `;
-
-  // Provide resolver functions for your schema fields
-  const resolvers = {
-    Query: {
-      hello: () => 'Hello world!',
-    },
-  };
-
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    dataSources: (): DataSources => ({
+      pokemonDataSource: new PokemonDataSource(),
+    }),
+  });
   await server.start();
 
   const app = express();
