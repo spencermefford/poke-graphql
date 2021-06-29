@@ -3,12 +3,12 @@ import PokemonDataSource from '../graphql/PokemonDataSource';
 import { Maybe } from './common';
 
 export type PokemonStats = {
-  meanHeight: Number;
-  medianHeight: Number;
-  modeHeight: Number;
-  meanWeight: Number;
-  medianWeight: Number;
-  modeWeight: Number;
+  meanHeight: Maybe<Number>;
+  medianHeight: Maybe<Number>;
+  modeHeight: Maybe<Number | Number[]>;
+  meanWeight: Maybe<Number>;
+  medianWeight: Maybe<Number>;
+  modeWeight: Maybe<Number | Number[]>;
 };
 
 export type DataSources = {

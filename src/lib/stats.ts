@@ -1,32 +1,41 @@
-const sum = (numbers: number[] = []): number =>
+export const sort = (numbers: number[] | string[] = []): number[] =>
+  numbers.map((n) => Number(n)).sort((a, b) => a - b);
+
+export const sum = (numbers: number[] = []): number =>
   numbers.reduce<number>((accumulator, n) => accumulator + n, 0);
 
 export const mean = (numbers: number[] = []): number =>
   sum(numbers) / numbers.length;
 
 export const median = (numbers: number[] = []): number => {
-  const sorted = numbers.sort((a, b) => a - b);
-  const midpoint = sorted.length / 2;
-  // If odd, find middle number. If even, find average of two middle numbers.
-  return midpoint % 1
-    ? sorted[Math.floor(midpoint)]
-    : (sorted[midpoint] + sorted[midpoint - 1]) / 2;
+  const sorted = sort(numbers);
+  const { length } = sorted;
+  const midpoint = length / 2;
+  return length % 2 === 0
+    ? mean([sorted[midpoint - 1], sorted[midpoint]])
+    : sorted[Math.floor(midpoint)];
 };
 
-export const mode = (numbers: number[] = []): number => {
-  const frequencies = numbers.reduce<{ [n: string]: number }>(
+export const mode = (numbers: number[] = []): number | number[] | undefined => {
+  const occurences = numbers.reduce<{ [key: string]: number }>(
     (accumulator, n) => {
       const current = accumulator[n] ?? 0;
-      accumulator[n] = current + 1;
-      return accumulator;
+      return { ...accumulator, [n]: current + 1 };
     },
     {},
   );
-  const sorted = Object.keys(frequencies)
-    .map((key) => ({
-      key,
-      count: frequencies[key],
-    }))
-    .sort((a, b) => a.count - b.count);
-  return Number(sorted.pop()?.key);
+  const mapped = Object.keys(occurences).map((key) => ({
+    key,
+    count: occurences[key],
+  }));
+  const sorted = mapped.sort((a, b) => a.count - b.count);
+  const grouped = sorted.reduce<{ [key: string]: number[] }>(
+    (accumulator, obj) => {
+      const current = accumulator[obj.count] ?? [];
+      return { ...accumulator, [obj.count]: [...current, Number(obj.key)] };
+    },
+    {},
+  );
+  const solution = grouped[sort(Object.keys(grouped)).pop() ?? ''];
+  return solution?.length === 1 ? solution[0] : solution;
 };
