@@ -14,7 +14,6 @@ const resolvers: Resolvers = {
 
       const pokemonList =
         await dataSources?.pokemonDataSource.getPokemonByNames(names);
-      console.log('pokemonList', pokemonList);
 
       return generateStats(pokemonList);
     },

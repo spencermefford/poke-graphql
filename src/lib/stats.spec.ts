@@ -48,7 +48,7 @@ describe('stats', () => {
 
   describe('mode', () => {
     test('it calculates a single mode', () => {
-      expect(mode([2, 2, 6, 8])).toEqual(2);
+      expect(mode([2, 2, 6, 8])).toEqual([2]);
     });
     test('it calculates multiple modes', () => {
       expect(mode([3, 3, 4, 4, 5])).toEqual([3, 4]);
