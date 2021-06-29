@@ -16,7 +16,7 @@ export const median = (numbers: number[] = []): number => {
     : sorted[Math.floor(midpoint)];
 };
 
-export const mode = (numbers: number[] = []): number | number[] | undefined => {
+export const mode = (numbers: number[] = []): number[] | undefined => {
   const occurences = numbers.reduce<{ [key: string]: number }>(
     (accumulator, n) => {
       const current = accumulator[n] ?? 0;
@@ -36,6 +36,5 @@ export const mode = (numbers: number[] = []): number | number[] | undefined => {
     },
     {},
   );
-  const solution = grouped[sort(Object.keys(grouped)).pop() ?? ''];
-  return solution?.length === 1 ? solution[0] : solution;
+  return grouped[sort(Object.keys(grouped)).pop() ?? ''];
 };

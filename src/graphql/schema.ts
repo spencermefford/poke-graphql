@@ -2,12 +2,14 @@ import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
   type PokemonStats {
+    heights: [Float]
     meanHeight: Float
     medianHeight: Float
-    modeHeight: Float
+    modeHeight: [Float]
+    weights: [Float]
     meanWeight: Float
     medianWeight: Float
-    modeWeight: Float
+    modeWeight: [Float]
   }
 
   type Query {

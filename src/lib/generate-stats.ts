@@ -6,9 +6,11 @@ export default function generateStats(pokemonList: any[] = []): PokemonStats {
   const weights = pokemonList.map((pokemon) => pokemon.weight);
 
   return {
+    heights,
     meanHeight: mean(heights),
     medianHeight: median(heights),
     modeHeight: mode(heights),
+    weights,
     meanWeight: mean(weights),
     medianWeight: median(weights),
     modeWeight: mode(weights),
